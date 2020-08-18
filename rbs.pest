@@ -15,8 +15,7 @@ type_variable = { captial_case }
 type_arguments = { "[" ~ (ruby_type ~","? ~  wo )+ ~ "]" }
 literal = { string_literal | symbol_literal | integer_literal | "true" | "false" }
 ruby_type = {
-
-     "^(" ~parameters~ ") ->" ~ ruby_type
+  "^(" ~parameters~ ") ->" ~ ruby_type
     | "self"
     | "instance"
     | "class"
@@ -45,29 +44,28 @@ ruby_types = {
 var_name = { lower_case }
 parameter = { ruby_types ~ var_name | ruby_types }
 
-// these are not correct. 
 required_positionals = { (parameter ~  wo ~ ","~  wo )* ~ parameter~  wo  }// doesnt parse.. its required for all but the last?
 optional_positionals = { ("?" ~ parameter ~  wo  ~ ","?~  wo )* ~ "?"~ parameter~  wo  }
 rest_positional = { "*" ~ parameter ~  wo  }
 trailing_positionals = { (parameter ~  wo ~ ","~  wo )* ~ parameter~  wo  }
 keyword = { lower_case }
 keywords =  {
-             (
-             ( keyword ~":" ~ w ~ parameter             // Required keyword
-              | "?"~ keyword ~":" ~ w  ~ parameter )
-              ~ ","?
-              )*   // Optional keyword
-              ~
-              ("**" ~ parameter)*// Rest keyword
-              }
+  (
+   ( keyword ~":" ~ w ~ parameter             // Required keyword
+     | "?"~ keyword ~":" ~ w  ~ parameter )
+   ~ ","?
+  )*   // Optional keyword
+    ~
+    ("**" ~ parameter)*// Rest keyword
+}
 
 parameters = {
   (required_positionals ~ optional_positionals ~ rest_positional ~ trailing_positionals?
-    |required_positionals ~ optional_positionals ~ rest_positional?
-    |required_positionals ~ optional_positionals ~ trailing_positionals?
-    |required_positionals ~ rest_positional ~ trailing_positionals?
-    |optional_positionals ~ rest_positional ~ trailing_positionals?
-    )? ~ keywords?
+   |required_positionals ~ optional_positionals ~ rest_positional?
+   |required_positionals ~ optional_positionals ~ trailing_positionals?
+   |required_positionals ~ rest_positional ~ trailing_positionals?
+   |optional_positionals ~ rest_positional ~ trailing_positionals?
+  )? ~ keywords?
 }
 
 // members
@@ -77,7 +75,7 @@ ivar_name =  { "@" ~ lower_case }
 method_name = { ASCII_ALPHANUMERIC+ }
 
 method_type = {
-    "(" ~ wo ~ ") ->" ~  w  ~ ruby_type
+  "(" ~ wo ~ ") ->" ~  w  ~ ruby_type
     |"(" ~ parameters ~ ") ->"~  w  ~ ruby_type
     | "(" ~ parameters ~ ") { (" ~ parameters ~ ") ->"~  w   ~ ruby_type ~ "} ->" ~ ruby_type
     | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ") ->"~  w   ~ ruby_type ~ "} ->" ~ ruby_type
@@ -124,7 +122,7 @@ attribute_member = {
 }
 
 member = {
-   wo  ~
+  wo  ~
     (ivar_member
      | method_member
      | attribute_member
@@ -138,7 +136,7 @@ member = {
 }
 
 variance ={
-  ("out" | "in") ~ w 
+  ("out" | "in") ~ w
 }
 
 module_type_parameter = {
@@ -146,7 +144,7 @@ module_type_parameter = {
 }
 
 module_type_parameters ={
-   "[" ~ (module_type_parameter ~ "," ~ wo )* ~ module_type_parameter ~"]"
+  "[" ~ (module_type_parameter ~ "," ~ wo )* ~ module_type_parameter ~"]"
 }
 
 const_name = {
