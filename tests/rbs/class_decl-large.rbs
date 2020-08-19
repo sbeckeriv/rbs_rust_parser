@@ -1,0 +1,4 @@
+class Ref[A] < Object
+  attr_reader value: A
+  def initialize: (Int a, ?Int a, *Int, Int t, a: Int) -> String
+end
