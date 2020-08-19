@@ -42,12 +42,11 @@ ruby_types = {
 }
 //method types
 var_name = { lower_case }
-parameter = { ruby_types ~ var_name | ruby_types }
+parameter = { ruby_types ~ w ~ var_name | ruby_types }
 
-required_positionals = { (parameter ~  wo ~ ","~  wo )* ~ parameter~  wo  }// doesnt parse.. its required for all but the last?
-optional_positionals = { ("?" ~ parameter ~  wo  ~ ","?~  wo )* ~ "?"~ parameter~  wo  }
-rest_positional = { "*" ~ parameter ~  wo  }
-trailing_positionals = { (parameter ~  wo ~ ","~  wo )* ~ parameter~  wo  }
+required_positionals = { (parameter ~  wo ~ "," ~ wo)* ~wo }// doesnt parse.. its required for all but the last?
+optional_positionals = { ("?"~parameter ~  wo ~ "," ~ wo)*  }
+rest_positional = { ("*"~parameter ~  wo ~ "," ~ wo)? }
 keyword = { lower_case }
 keywords =  {
   (
@@ -59,13 +58,13 @@ keywords =  {
     ("**" ~ parameter)*// Rest keyword
 }
 
+
 parameters = {
-  (required_positionals ~ optional_positionals ~ rest_positional ~ trailing_positionals?
-   |required_positionals ~ optional_positionals ~ rest_positional?
-   |required_positionals ~ optional_positionals ~ trailing_positionals?
-   |required_positionals ~ rest_positional ~ trailing_positionals?
-   |optional_positionals ~ rest_positional ~ trailing_positionals?
-  )? ~ keywords?
+   required_positionals ~
+   optional_positionals ~
+   rest_positional ~
+   required_positionals ~
+   wo ~keywords
 }
 
 // members
