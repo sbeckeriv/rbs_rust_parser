@@ -1,3 +1,4 @@
+//https://blog.cyplo.dev/posts/2018/12/generate-rust-tests-from-data/
 use std::env;
 use std::fs::read_dir;
 use std::fs::DirEntry;
@@ -5,7 +6,6 @@ use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 
-// build script's entry point
 fn main() {
     let destination = Path::new("tests/").join("tests.rs");
 
