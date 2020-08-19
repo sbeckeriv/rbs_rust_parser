@@ -26,19 +26,19 @@ fn main() {
 fn write_test(test_file: &mut File, directory: &DirEntry) {
     let directory = directory.path().canonicalize().unwrap();
     let path = directory.display();
-    let test_name = format!("{}", directory.file_name().unwrap().to_string_lossy());
-    let test_name = test_name.replace(".rbs", "");
+    let file_name = format!("{}", directory.file_name().unwrap().to_string_lossy());
+    let test_name = file_name.replace(".rbs", "");
     let split = test_name.split("-").collect::<Vec<_>>();
     let caller = split.first().unwrap();
     let test_name = test_name.replace("-", "_");
     let data = format!(
         "#[test]
 fn test_{}() {{
-    let string =  fs::read_to_string(\"{}\").expect(\"didnt work\");
+    let string =  fs::read_to_string(\"./tests/rbs/{}\").expect(\"didnt work\");
     let pairs = RBSParser::parse(Rule::{}, &string).unwrap_or_else(|e| panic!(\"error{{}}\", e));
 }}
 ",
-        test_name, path, caller
+        test_name, file_name, caller
     );
     write!(test_file, "{}", data).unwrap();
 }
