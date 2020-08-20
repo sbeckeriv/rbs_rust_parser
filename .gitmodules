@@ -1,0 +1,3 @@
+[submodule "tests/stdlib"]
+	path = tests/stdlib
+	url = https://github.com/ruby/rbs.git
