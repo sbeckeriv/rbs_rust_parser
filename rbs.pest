@@ -30,27 +30,24 @@ ruby_type = {
     | class_name ~ type_arguments
     | interface_name ~ type_arguments
     | "singleton(" ~ class_name ~ ")"
-    | alias_name
+//    | alias_name // why is this hear?
     | literal
     | "{"~wo ~ (record_name ~ ":"~wo ~ ruby_type ~ wo ~","?~wo)+ ~ wo~"}"
     | "[]" | "[" ~ ( ruby_type ~ ","? ~  wo  )+ ~ "]"
     | type_variable
 }
 ruby_types = {
-  ruby_type ~ "|" ~ ruby_type
-    | ruby_type ~ "&" ~ ruby_type
+  (ruby_type ~ wo ~ "|" ~ wo)+ ~ wo ~ ruby_type
+    | (ruby_type ~ wo ~ "&" ~ wo)+ ~ ruby_type
     | ruby_type ~ "?"
     | ruby_type
 }
 
 //method types
 var_name = { lower_case }
-parameter = { "?"?~ (ruby_types ~ w ~ var_name | ruby_types) }
+parameter = { "?"?~ "*"? ~(ruby_types ~ w ~ var_name | ruby_types) }
 
-
-required_positionals = { (parameter ~  wo ~ "," ~ wo)* ~ parameter* ~wo ~","*~wo  }// doesnt parse.. its required for all but the last?
-optional_positionals = { ("?"~parameter ~  wo ~ "," ~ wo)*  }
-rest_positional = { ("*"~parameter ~  wo ~ "," ~ wo)? }
+required_positionals = { (parameter ~  wo ~ "," ~ wo)* ~wo ~ parameter}
 keyword = { lower_case }
 keywords =  {
   (
@@ -62,14 +59,13 @@ keywords =  {
     ("**" ~ parameter)*// Rest keyword
 }
 
-
 parameters = {
-  required_positionals ~
-    optional_positionals ~
-    rest_positional ~
-    required_positionals ~
-    wo ~keywords
+  wo~(((parameter | keywords) ~  wo ~ "," ~ wo)+ ~wo~ (parameter | keywords) 
+ |   required_positionals
+ | keywords)~wo
+
 }
+
 
 // members
 
