@@ -4,7 +4,7 @@ symbol_literal = _{ ":" ~ ASCII_ALPHANUMERIC+ }
 w = _{ WHITE_SPACE+ }
 wo = _{ WHITE_SPACE* }
 integer_literal= _{ ASCII_DIGIT+ }
-lower_case = _{ ASCII_ALPHA_LOWER{1} ~ ASCII_ALPHANUMERIC* }
+lower_case = _{ ASCII_ALPHA_LOWER{1} ~ (ASCII_ALPHANUMERIC | "_")* }
 namespace = { "::" ~ captial_case ~ "::"*  | "::" }
 
 class_name = { namespace? ~ captial_case }
@@ -76,8 +76,10 @@ method_name = { (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")+ }
 method_type = {
   "(" ~ wo ~ ") ->" ~  w  ~ ruby_type
     |"(" ~ parameters ~ ") ->"~  w  ~ ruby_type
-    | "(" ~ parameters ~ ") { (" ~ parameters ~ ") ->"~  w   ~ ruby_type ~ "} ->" ~ ruby_type
-    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ") ->"~  w   ~ ruby_type ~ "} ->" ~ ruby_type
+    | "(" ~ parameters ~ ") { (" ~ parameters ~ ") ->"~  w ~"("~wo~ ruby_types~ wo ~")" ~ wo ~ "} ->" ~ wo ~ ruby_type
+    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ") ->"~  w ~"("~wo  ~ ruby_type ~ wo ~")" ~ wo ~  "} ->" ~ wo ~ ruby_type
+    | "(" ~ parameters ~ ") { (" ~ parameters ~ ") ->"~  w ~ ruby_type ~ wo ~ "} ->" ~ wo ~ ruby_type
+    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ") ->"~  w ~ ruby_type ~ wo ~  "} ->" ~ wo ~ ruby_type
 }
 
 method_types =  {
@@ -130,6 +132,7 @@ member = {
      | extend_member
      | prepend_member
      | alias_member
+     | const_decl
      | "public"
      | "private"
     )
@@ -148,7 +151,7 @@ module_type_parameters ={
 }
 
 const_name = {
-  namespace ~ captial_case
+  namespace? ~(ASCII_ALPHA | "_")+ 
 }
 
 global_name = { "$" ~ASCII_ALPHA }
@@ -164,9 +167,8 @@ type_alias_decl = {
 }
 
 const_decl = {
-  const_name ~ ":" ~ ruby_type
+ const_name ~ ":" ~ w ~ ruby_type
 }
-
 
 decl = {
   comments ~
@@ -181,7 +183,6 @@ decl = {
 }
 
 class_decl = {
-
   "class" ~  w  ~ class_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ "end"
     | "class"~  w   ~ class_name ~ module_type_parameters*~  w   ~ "<"~  w   ~ class_name ~ type_arguments? ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ "end"
 }
