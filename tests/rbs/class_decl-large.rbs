@@ -1,4 +1,13 @@
+# Now with
+# even more comments
 class Ref[A] < Object
+  # you get a comment
   attr_reader value: A
+
+  # you get two comments
+  # thats right two comments
+  # @1234$#%^&^*( comments
   def initialize: (Int a, ?Int a, *Int, Int t, a: Int) -> String
+
+  def no_comment: (Int a, ?Int? a, *Int, Int t, a: Int) -> self
 end
