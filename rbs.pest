@@ -71,7 +71,7 @@ parameters = {
 
 ivar_member = { ivar_name ~ ":" ~ ruby_type }
 ivar_name =  { "@" ~ lower_case }
-method_name = { (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")+ }
+method_name = { (ASCII_ALPHA | "_" | "*" | "+" | "-" | "/") ~ (ASCII_ALPHANUMERIC | "_" | "!")* }
 
 method_type = {
   "(" ~ wo ~ ") ->" ~  w  ~ ruby_type
@@ -94,8 +94,8 @@ method_member = {
 }
 
 alias_member = {
-  "alias" ~ method_name ~ method_name
-    | "alias self." ~ method_name ~ "self." ~ method_name
+  "alias" ~w ~ method_name~w ~ method_name
+    | "alias" ~ w ~"self." ~ method_name ~w~ "self." ~ method_name
 }
 
 attribute_type = { "attr_reader" | "attr_writer" | "attr_accessor" }
@@ -133,6 +133,8 @@ member = {
      | prepend_member
      | alias_member
      | const_decl
+     | class_decl
+     | module_decl
      | "public"
      | "private"
     )
@@ -183,16 +185,16 @@ decl = {
 }
 
 class_decl = {
-  "class" ~  w  ~ class_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ "end"
-    | "class"~  w   ~ class_name ~ module_type_parameters*~  w   ~ "<"~  w   ~ class_name ~ type_arguments? ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ "end"
+  "class" ~  w  ~ class_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~wo~ "end"
+    | "class"~  w   ~ class_name ~ module_type_parameters*~  w   ~ "<"~  w   ~ class_name ~ type_arguments? ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ wo~ "end"
 }
 module_name = {
   captial_case
 }
 
 module_decl ={
-  "module" ~ w ~ module_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE*)* ~ NEWLINE* ~ "end"
-    | "module" ~ w ~ module_name ~ module_type_parameters ~ wo ~":" ~ wo ~ module_self_types ~NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ "end"
+  "module" ~ w ~ module_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE*)* ~ NEWLINE*~wo ~ "end"
+    | "module" ~ w ~ module_name ~ module_type_parameters ~ wo ~":" ~ wo ~ module_self_types ~NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~wo~ "end"
 }
 
 module_self_types ={
