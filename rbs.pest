@@ -17,7 +17,7 @@ literal = { string_literal | symbol_literal | integer_literal | "true" | "false"
 record_name = { lower_case }
 
 ruby_type = {
-  "^(" ~parameters~ ") ->" ~ ruby_type
+  "^(" ~parameters~ ")" ~ w ~"->"~ wo ~ ruby_type
     | "self"
     | "instance"
     | "class"
@@ -60,9 +60,11 @@ keywords =  {
 }
 
 parameters = {
-  wo~(((parameter | keywords) ~  wo ~ "," ~ wo)+ ~wo~ (parameter | keywords) 
+  wo~(
+  ((parameter | keywords) ~  wo ~ "," ~ wo)+ ~wo~ (parameter | keywords) 
  |   required_positionals
- | keywords)~wo
+ | keywords
+ )~wo ~ keywords ~wo
 
 }
 
@@ -74,12 +76,12 @@ ivar_name =  { "@" ~ lower_case }
 method_name = { (ASCII_ALPHA | "_" | "*" | "+" | "-" | "/") ~ (ASCII_ALPHANUMERIC | "_" | "!")* }
 
 method_type = {
-  "(" ~ wo ~ ") ->" ~  w  ~ ruby_type
-    |"(" ~ parameters ~ ") ->"~  w  ~ ruby_type
-    | "(" ~ parameters ~ ") { (" ~ parameters ~ ") ->"~  w ~"("~wo~ ruby_types~ wo ~")" ~ wo ~ "} ->" ~ wo ~ ruby_type
-    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ") ->"~  w ~"("~wo  ~ ruby_type ~ wo ~")" ~ wo ~  "} ->" ~ wo ~ ruby_type
-    | "(" ~ parameters ~ ") { (" ~ parameters ~ ") ->"~  w ~ ruby_type ~ wo ~ "} ->" ~ wo ~ ruby_type
-    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ") ->"~  w ~ ruby_type ~ wo ~  "} ->" ~ wo ~ ruby_type
+  "(" ~ wo ~ ")" ~ w ~ "->" ~  w  ~ ruby_type
+    |"(" ~ parameters ~ ")" ~ w ~ "->"~  w  ~ ruby_type
+    | "(" ~ parameters ~ ") { (" ~ parameters ~ ")" ~ w ~ "->"~  w ~"("~wo~ ruby_types~ wo ~")" ~ wo ~ "}" ~ w ~ "->" ~ wo ~ ruby_type
+    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ")" ~ w ~ "->"~  w ~"("~wo  ~ ruby_type ~ wo ~")" ~ wo ~  "}" ~ w ~ "->" ~ wo ~ ruby_type
+    | "(" ~ parameters ~ ") { (" ~ parameters ~ ")" ~ w ~ "->"~  w ~ ruby_type ~ wo ~ "}" ~ w ~ "->" ~ wo ~ ruby_type
+    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ")" ~ w ~ "->"~  w ~ ruby_type ~ wo ~  "}" ~ w ~ "->" ~ wo ~ ruby_type
 }
 
 method_types =  {
