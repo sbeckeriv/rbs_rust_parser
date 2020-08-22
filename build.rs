@@ -46,11 +46,12 @@ fn write_stdlib_test(test_file: &mut File, directory: &PathBuf) {
     let caller = split.first().unwrap();
     let test_name = test_name.replace("-", "_");
     let test_name = test_name.replace("/", "_");
+    let test_name = test_name.replace("__", "_");
     let data = format!(
         "#[test]
-fn test_{}() {{
+fn test{}() {{
     let string =  fs::read_to_string(\"./tests/stdlib/stdlib/{}\").expect(\"didnt work\");
-    let pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!(\"error{{}}\", e));
+    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!(\"error{{}}\", e));
 }}
 ",
         test_name, file_name
@@ -66,9 +67,10 @@ fn write_test(test_file: &mut File, directory: &DirEntry) {
     let split = test_name.split("-").collect::<Vec<_>>();
     let caller = split.first().unwrap();
     let test_name = test_name.replace("-", "_");
+    let test_name = test_name.replace("__", "_");
     let data = format!(
         "#[test]
-fn test_{}() {{
+fn test{}() {{
     let string =  fs::read_to_string(\"./tests/rbs/{}\").expect(\"didnt work\");
     let pairs = RBSParser::parse(Rule::{}, &string).unwrap_or_else(|e| panic!(\"error{{}}\", e));
 }}
