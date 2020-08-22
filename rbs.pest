@@ -80,7 +80,22 @@ parameters = {
 
 ivar_member = { ivar_name ~ ":" ~ ruby_type }
 ivar_name =  { "@" ~ lower_case }
-method_name = { (ASCII_ALPHA | "_" | "*" | "+" | "-" | "/") ~ (ASCII_ALPHANUMERIC | "_" | "!")* }
+method_name = {
+  "[]"
+    |"*"
+    | "+"
+    | "-"
+    | "/"
+    | "&"
+    | "|"
+    | "<<"
+    | "^"
+    |
+    (
+     (ASCII_ALPHA | "_" ) ~
+     (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?")? 
+    )
+}
 
 method_type = {
   "(" ~ wo ~ ")" ~ w ~ "->" ~  w  ~ ruby_type
@@ -92,7 +107,7 @@ method_type = {
 }
 
 method_types =  {
-  "super" | (type_parameters*~ wo ~ method_type ~ wo ~ "|" ~ wo)* ~type_parameters* ~ method_type
+  "super" | (type_parameters*~ wo ~ method_type ~ wo ~ "|" ~ wo)* ~type_parameters* ~ method_type ~"?"?
 }
 
 
