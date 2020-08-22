@@ -125,15 +125,15 @@ alias_member = {
 attribute_type = { "attr_reader" | "attr_writer" | "attr_accessor" }
 
 include_member = {
-  "include" ~ class_name ~ type_arguments
-    | "include" ~ interface_name ~ type_arguments
+  "include"~ w ~ class_name ~ type_arguments
+    | "include"~ w ~ interface_name ~ type_arguments
 }
 extend_member = {
-  "extend" ~ class_name ~ type_arguments
-    | "extend" ~ interface_name ~ type_arguments
+  "extend"~ w ~ class_name ~ type_arguments
+    | "extend"~ w ~ interface_name ~ type_arguments
 }
 prepend_member = {
-  "prepend" ~ class_name ~ type_arguments
+  "prepend"~ w ~ class_name ~ type_arguments
 }
 
 type_parameters ={
