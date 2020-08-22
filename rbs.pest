@@ -97,17 +97,25 @@ method_name = {
     )
 }
 
+arrow_type = {
+ w ~ "->" ~  w  ~ ( "("~wo~ruby_types~wo~")" | ruby_type)
+}
 method_type = {
-  "(" ~ wo ~ ")" ~ w ~ "->" ~  w  ~ ruby_type
-    |"(" ~ parameters ~ ")" ~ w ~ "->"~  w  ~ ruby_type
-    | "(" ~ parameters ~ ") { (" ~ parameters ~ ")" ~ w ~ "->"~  w ~"("~wo~ ruby_types~ wo ~")" ~ wo ~ "}" ~ w ~ "->" ~ wo ~ ruby_type
-    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ")" ~ w ~ "->"~  w ~"("~wo  ~ ruby_type ~ wo ~")" ~ wo ~  "}" ~ w ~ "->" ~ wo ~ ruby_type
-    | "(" ~ parameters ~ ") { (" ~ parameters ~ ")" ~ w ~ "->"~  w ~ ruby_type ~ wo ~ "}" ~ w ~ "->" ~ wo ~ ruby_type
-    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ")" ~ w ~ "->"~  w ~ ruby_type ~ wo ~  "}" ~ w ~ "->" ~ wo ~ ruby_type
+  "(" ~ wo ~ ")" ~ arrow_type
+    |"(" ~ parameters ~ ")" ~ arrow_type 
+    | "(" ~ parameters ~ ") { (" ~ parameters ~ ")" ~ w ~ "->"~  w ~"("~wo~ ruby_types~ wo ~")" ~ wo ~ "}" ~ arrow_type
+    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ")" ~ w ~ "->"~  w ~"("~wo  ~ ruby_type ~ wo ~")" ~ wo ~  "}" ~ arrow_type
+    | "(" ~ parameters ~ ") { (" ~ parameters ~ ")" ~ w ~ "->"~  w ~ ruby_type ~ wo ~ "}" ~ arrow_type
+    | "(" ~ parameters ~ ") ?{ (" ~ parameters ~ ")" ~ w ~ "->"~  w ~ ruby_type ~ wo ~  "}" ~ arrow_type
+}
+method_types_prime =  {
+  (type_parameters*~ wo ~ method_type ~ wo ~ "|" ~ wo)* ~type_parameters* ~ method_type ~"?"?
 }
 
 method_types =  {
-  "super" | (type_parameters*~ wo ~ method_type ~ wo ~ "|" ~ wo)* ~type_parameters* ~ method_type ~"?"?
+  "super" 
+    |  "(" ~ wo ~ method_types_prime ~ wo ~ ")" // this might be a lie..
+    |  method_types_prime 
 }
 
 
