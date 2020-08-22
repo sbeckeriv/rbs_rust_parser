@@ -12,7 +12,7 @@ interface_name = { namespace? ~ "_" ~ captial_case }
 alias_name = { namespace? ~ lower_case }
 
 type_variable = { captial_case }
-type_arguments = { "[" ~ (ruby_type ~","? ~  wo )+ ~ "]" }
+type_arguments = { "["~wo ~ (ruby_type ~","? ~  wo )+ ~wo~ "]" }
 literal = { string_literal | symbol_literal | integer_literal | "true" | "false" }
 record_name = { lower_case }
 
@@ -30,10 +30,10 @@ ruby_type = {
     | class_name ~ type_arguments
     | interface_name ~ type_arguments
     | "singleton(" ~ class_name ~ ")"
-//    | alias_name // why is this hear?
+    //    | alias_name // why is this hear?
     | literal
     | "{"~wo ~ (record_name ~ ":"~wo ~ ruby_type ~ wo ~","?~wo)+ ~ wo~"}"
-    | "[]" | "[" ~ ( ruby_type ~ ","? ~  wo  )+ ~ "]"
+    | "["~wo~"]" | "[" ~ wo ~ ( ruby_type ~ ","? ~  wo  )+ ~ wo~"]"
     | type_variable
 }
 ruby_types = {
@@ -45,7 +45,14 @@ ruby_types = {
 
 //method types
 var_name = { lower_case }
-parameter = { "?"?~ "*"? ~(ruby_types ~ w ~ var_name | ruby_types) }
+parameter_prime = { "?"?~ "*"? ~(ruby_types ~ w ~ var_name | ruby_types) }
+parameter = {
+  "?"?~
+    (
+     "(" ~parameter_prime ~")"
+     | parameter_prime
+    )
+}
 
 required_positionals = { (parameter ~  wo ~ "," ~ wo)* ~wo ~ parameter}
 keyword = { lower_case }
@@ -61,10 +68,10 @@ keywords =  {
 
 parameters = {
   wo~(
-  ((parameter | keywords) ~  wo ~ "," ~ wo)+ ~wo~ (parameter | keywords) 
- |   required_positionals
- | keywords
- )~wo ~ keywords ~wo
+      ((parameter | keywords) ~  wo ~ "," ~ wo)+ ~wo~ (parameter | keywords)
+      |   required_positionals
+      | keywords
+     )~wo ~ keywords ~wo
 
 }
 
@@ -115,7 +122,7 @@ prepend_member = {
 }
 
 type_parameters ={
-  "["~ wo  ~ (type_variable~ wo  ~ "," ~ wo )* ~ type_variable ~ wo  ~  "]"
+  wo~"["~ wo  ~ (type_variable~ wo  ~ "," ~ wo )* ~ type_variable ~ wo  ~  "]" ~wo
 }
 
 attribute_member = {
@@ -155,7 +162,7 @@ module_type_parameters ={
 }
 
 const_name = {
-  namespace? ~(ASCII_ALPHA | "_")+ 
+  namespace? ~(ASCII_ALPHA | "_")+
 }
 
 global_name = { "$" ~ASCII_ALPHA }
@@ -171,11 +178,11 @@ type_alias_decl = {
 }
 
 const_decl = {
- const_name ~ ":" ~ w ~ ruby_type
+  const_name ~ ":" ~ w ~ ruby_type
 }
 
 decl = {
-  comments ~
+  comments* ~
     (class_decl
      | module_decl
      | interface_decl
