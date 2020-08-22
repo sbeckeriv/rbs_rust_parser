@@ -5,9 +5,9 @@ w = _{ WHITE_SPACE+ }
 wo = _{ WHITE_SPACE* }
 integer_literal= _{ ASCII_DIGIT+ }
 lower_case = _{ ASCII_ALPHA_LOWER{1} ~ (ASCII_ALPHANUMERIC | "_")* }
-namespace = { "::" ~ captial_case ~ "::"*  | "::" }
+namespace = { "::"? ~ captial_case ~ "::"*  | "::" }
 
-class_name = { namespace? ~ captial_case }
+class_name = { namespace* ~ captial_case? }
 interface_name = { namespace? ~ "_" ~ captial_case }
 alias_name = { namespace? ~ lower_case }
 
