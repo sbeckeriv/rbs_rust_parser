@@ -7,11 +7,11 @@ integer_literal= _{ ASCII_DIGIT+ }
 lower_case = _{ ASCII_ALPHA_LOWER{1} ~ (ASCII_ALPHANUMERIC | "_")* }
 namespace = { "::"? ~ captial_case ~ "::"*  | "::" }
 
-class_name = { namespace* ~ captial_case? }
-interface_name = { namespace? ~ "_" ~ captial_case }
+class_name = { namespace* ~ "_"? ~ captial_case? }
+interface_name = { "_"?~namespace? ~ "_" ~ captial_case }
 alias_name = { namespace? ~ lower_case }
 
-type_variable = { captial_case }
+type_variable = { "_"?~captial_case }
 type_arguments = { "["~wo ~ (ruby_type ~","? ~  wo )+ ~wo~ "]" }
 literal = { string_literal | symbol_literal | integer_literal | "true" | "false" }
 record_name = { lower_case }
@@ -82,18 +82,28 @@ ivar_member = { ivar_name ~ ":" ~ ruby_type }
 ivar_name =  { "@" ~ lower_case }
 method_name = {
   "[]"
-    |"*"
+    | "*"
+    | "!"
+    | "%"
     | "+"
     | "-"
     | "/"
     | "&"
     | "|"
     | "<<"
+    | "<"
+    | ">"
+    | ">="
     | "^"
+    | "<=>"
+    | "=="
+    | "==="
+    | "**"
+    | "`self`"
     |
     (
      (ASCII_ALPHA | "_" ) ~
-     (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?")? 
+     (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?" | "=")? 
     )
 }
 
@@ -133,15 +143,15 @@ alias_member = {
 attribute_type = { "attr_reader" | "attr_writer" | "attr_accessor" }
 
 include_member = {
-  "include"~ w ~ class_name ~ type_arguments
-    | "include"~ w ~ interface_name ~ type_arguments
+  "include"~ w ~ class_name ~ type_arguments?
+    | "include"~ w ~ interface_name ~ type_arguments?
 }
 extend_member = {
-  "extend"~ w ~ class_name ~ type_arguments
-    | "extend"~ w ~ interface_name ~ type_arguments
+  "extend"~ w ~ class_name ~ type_arguments?
+    | "extend"~ w ~ interface_name ~ type_arguments?
 }
 prepend_member = {
-  "prepend"~ w ~ class_name ~ type_arguments
+  "prepend"~ w ~ class_name ~ type_arguments?
 }
 
 type_parameters ={
@@ -149,7 +159,7 @@ type_parameters ={
 }
 
 attribute_member = {
-  attribute_type ~  w  ~ method_name ~ ":"~  w  ~ ruby_type
+  attribute_type ~  w  ~ method_name ~ ":"~  w  ~ ruby_type~"?"?
     | attribute_type ~  w  ~ method_name ~ "("~  wo  ~ ivar_name~  wo  ~  ") :" ~  w ~ ruby_type
     | attribute_type ~  w  ~ method_name ~ "() :"~  w  ~ ruby_type
 }
