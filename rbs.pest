@@ -212,7 +212,7 @@ module_type_parameters ={
 }
 
 const_name = {
- (ASCII_ALPHA | "_")+
+ "::"? ~ (ASCII_ALPHA | "_" | "::")+
 }
 
 global_name = { "$" ~ASCII_ALPHA }
