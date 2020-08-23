@@ -12,7 +12,7 @@ interface_name = { namespace? ~ "_"? ~ captial_case }
 alias_name = { namespace? ~ lower_case }
 
 type_variable = { "_"?~captial_case }
-type_arguments = { "["~wo ~ (ruby_type ~","? ~  wo )+ ~wo~ "]" }
+type_arguments = { "["~wo ~ (ruby_types ~","? ~  wo )+ ~wo~ "]" }
 literal = { string_literal | symbol_literal | integer_literal | "true" | "false" }
 record_name = { lower_case }
 
@@ -95,6 +95,7 @@ method_name = {
     | "[]" 
     | "=~"
     | "=="
+    | "!="
     | "**"
     | "*"
     | "!"
