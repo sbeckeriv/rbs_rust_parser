@@ -173,8 +173,8 @@ type_parameters ={
 
 attribute_member = {
   attribute_type ~  w  ~ method_name ~ ":"~  w  ~ ruby_type~"?"?
-    | attribute_type ~  w  ~ method_name ~ "("~  wo  ~ ivar_name~  wo  ~  ") :" ~  w ~ ruby_type
-    | attribute_type ~  w  ~ method_name ~ "() :"~  w  ~ ruby_type
+    | attribute_type ~  w  ~ method_name ~ wo ~"("~  wo  ~ ivar_name~  wo  ~  ")"~wo~":" ~  w ~ ruby_type ~"?"?
+    | attribute_type ~  w  ~ method_name ~ wo~ "()"~wo~":"~  w  ~ ruby_type~"?"?
 }
 
 member = {
