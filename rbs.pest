@@ -11,13 +11,13 @@ class_name = { namespace* ~ "_"? ~ capital_case? }
 interface_name = { namespace? ~ "_"? ~ capital_case }
 alias_name = { namespace? ~ lower_case }
 
-type_variable = { "_"?~capital_case }
-type_arguments = { "["~wo ~ (ruby_types ~","? ~  wo )+ ~wo~ "]" }
+type_variable = { "_"? ~ capital_case }
+type_arguments = { "[" ~ wo ~ (ruby_types ~ ","? ~ wo )+ ~ wo ~ "]" }
 literal = { string_literal | symbol_literal | integer_literal | "true" | "false" }
 record_name = { lower_case }
 
 ruby_type = {
-  "^(" ~parameters~ ")" ~ w ~"->"~ wo ~ ruby_type
+  "^(" ~ parameters ~ ")" ~ w ~ "->" ~ wo ~ ruby_type
     | "self"
     | "instance"
     | "class"
@@ -31,10 +31,10 @@ ruby_type = {
     | interface_name ~ type_arguments
     | "singleton(" ~ class_name ~ ")"
     | literal
-    | "{"~wo ~ (record_name ~ ":"~wo ~ ruby_type ~ wo ~","?~wo)+ ~ wo~"}"
-    | "["~wo~"]" | "[" ~ wo ~ ( ruby_type ~ ","? ~  wo  )+ ~ wo~"]"
+    | "{" ~ wo ~ (record_name ~ ":" ~ wo ~ ruby_type ~ wo ~ ","? ~ wo)+ ~ wo ~ "}"
+    | "[" ~ wo ~ "]" | "[" ~ wo ~ ( ruby_type ~ ","? ~ wo  )+ ~ wo ~ "]"
     | type_variable
-    //| alias_name~"?"?~w // why is this hear?
+    //| alias_name ~ "?"? ~ w // why is this hear?
 }
 ruby_types = {
   (ruby_type ~ wo ~ "|" ~ wo)+ ~ wo ~ ruby_type
@@ -45,21 +45,21 @@ ruby_types = {
 
 //method types
 var_name = { "_"? ~ lower_case }
-parameter_prime = { "?"?~ "*"? ~(ruby_types ~ w ~ var_name | ruby_types) }
+parameter_prime = { "?"? ~ "*"? ~ (ruby_types ~ w ~ var_name | ruby_types) }
 parameter = {
-  "?"?~
+  "?"? ~
     (
-     "(" ~parameter_prime ~")"
+     "(" ~ parameter_prime ~ ")"
      | parameter_prime
     )
 }
 
-required_positionals = { (parameter ~  wo ~ "," ~ wo)* ~wo ~ parameter}
+required_positionals = { (parameter ~ wo ~ "," ~ wo)* ~ wo ~ parameter}
 keyword = { lower_case }
 keywords =  {
   (
-   ( keyword ~":" ~ w ~ parameter             // Required keyword
-     | "?"~ keyword ~":" ~ w  ~ parameter )
+   ( keyword ~ ":" ~ w ~ parameter             // Required keyword
+     | "?" ~ keyword ~ ":" ~ w ~ parameter )
    ~ ","?
   )*   // Optional keyword
     ~
@@ -67,11 +67,11 @@ keywords =  {
 }
 
 parameters = {
-  wo~(
-      ((parameter | keywords) ~  wo ~ "," ~ wo)+ ~wo~ (parameter | keywords)
+  wo ~ (
+      ((parameter | keywords) ~ wo ~ "," ~ wo)+ ~ wo ~ (parameter | keywords)
       | required_positionals
       | keywords
-     )~wo ~ keywords ~wo
+      ) ~ wo ~ keywords ~ wo
 
 }
 
@@ -84,7 +84,7 @@ method_name = {
   // ordered by count
   "<=>"
     | "==="
-    | "[]=" 
+    | "[]="
     | "!~"
     | "+@"
     | "-@"
@@ -92,7 +92,7 @@ method_name = {
     | ">>"
     | ">="
     | "<="
-    | "[]" 
+    | "[]"
     | "=~"
     | "=="
     | "!="
@@ -112,75 +112,75 @@ method_name = {
     |
     ( "`" ~
       (ASCII_ALPHA | "_" ) ~
-      (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?" | "=")? 
+      (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?" | "=")?
       ~ "`"
     )
     |
     (
      (ASCII_ALPHA | "_" ) ~
-     (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?" | "=")? 
+     (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?" | "=")?
     )
 }
 
 arrow_type = {
-  wo ~ "->" ~  w  ~ ( "("~wo~ruby_types~wo~")" | ruby_type)
+  wo ~ "->" ~ w ~ ( "(" ~ wo ~ ruby_types ~ wo ~ ")" | ruby_type)
 }
 method_type = {
   "(" ~ wo ~ ")" ~ arrow_type
-    |"(" ~ parameters ~ ")" ~ arrow_type 
-    | "(" ~ parameters ~ ")"~ wo ~ "?"? ~ "{" ~ wo ~ "(" ~ parameters ~ ")" ~ w ~ "->"~  w ~"("~wo~ ruby_types~ wo ~")" ~ wo ~ "}" ~ arrow_type
-    | "(" ~ parameters ~ ")"~ wo~  "?"? ~ "{"~wo ~"(" ~ parameters ~ ")" ~ w ~ "->"~  w ~ ruby_type ~ wo ~ "}" ~ arrow_type
+    |"(" ~ parameters ~ ")" ~ arrow_type
+    | "(" ~ parameters ~ ")" ~ wo ~ "?"? ~ "{" ~ wo ~ "(" ~ parameters ~ ")" ~ w ~ "->" ~ w ~ "(" ~ wo ~ ruby_types ~ wo ~ ")" ~ wo ~ "}" ~ arrow_type
+    | "(" ~ parameters ~ ")" ~ wo ~ "?"? ~ "{" ~ wo ~ "(" ~ parameters ~ ")" ~ w ~ "->" ~ w ~ ruby_type ~ wo ~ "}" ~ arrow_type
 }
 method_types_prime =  {
-  (type_parameters*~ wo ~ method_type ~ wo ~ "|" ~ wo)* ~type_parameters* ~ method_type ~"?"?
+  (type_parameters* ~ wo ~ method_type ~ wo ~ "|" ~ wo)* ~ type_parameters* ~ method_type ~ "?"?
 }
 
 method_types =  {
-  "super" 
+  "super"
     |  "(" ~ wo ~ method_types_prime ~ wo ~ ")" // this might be a lie..
-    |  method_types_prime 
+    |  method_types_prime
     | arrow_type
 }
 
 
 method_member = {
-  "def"~  w ~ method_name ~ ":"~ w   ~ method_types
-    | "def" ~  w  ~ "self." ~ method_name ~ ":"~  w   ~ method_types
-    | "def" ~  w  ~ "self?." ~ method_name ~ ":"~  w   ~ method_types
+  "def" ~ w ~ method_name ~ ":" ~ w  ~ method_types
+    | "def" ~ w ~ "self." ~ method_name ~ ":" ~ w  ~ method_types
+    | "def" ~ w ~ "self?." ~ method_name ~ ":" ~ w  ~ method_types
 }
 
 alias_member = {
-  "alias" ~w ~ method_name~w ~ method_name
-    | "alias" ~ w ~"self." ~ method_name ~w~ "self." ~ method_name
+  "alias" ~ w ~ method_name ~ w ~ method_name
+    | "alias" ~ w ~ "self." ~ method_name ~ w ~ "self." ~ method_name
 }
 
 attribute_type = { "attr_reader" | "attr_writer" | "attr_accessor" }
 
 include_member = {
-  "include"~ w ~ class_name ~ type_arguments?
-    | "include"~ w ~ interface_name ~ type_arguments?
+  "include" ~ w ~ class_name ~ type_arguments?
+    | "include" ~ w ~ interface_name ~ type_arguments?
 }
 extend_member = {
-  "extend"~ w ~ class_name ~ type_arguments?
-    | "extend"~ w ~ interface_name ~ type_arguments?
+  "extend" ~ w ~ class_name ~ type_arguments?
+    | "extend" ~ w ~ interface_name ~ type_arguments?
 }
 prepend_member = {
-  "prepend"~ w ~ class_name ~ type_arguments?
+  "prepend" ~ w ~ class_name ~ type_arguments?
 }
 
 type_parameters ={
-  wo~"["~ wo  ~ (type_variable~ wo  ~ "," ~ wo )* ~ type_variable ~ wo  ~  "]" ~wo
+  wo ~ "[" ~ wo ~ (type_variable ~ wo ~ "," ~ wo )* ~ type_variable ~ wo ~ "]" ~ wo
 }
 
 attribute_member = {
-  attribute_type ~  w  ~ method_name ~ ":"~  w  ~ ruby_type~"?"?
-    | attribute_type ~  w  ~ method_name ~ wo ~"("~  wo  ~ ivar_name~  wo  ~  ")"~wo~":" ~  w ~ ruby_type ~"?"?
-    | attribute_type ~  w  ~ method_name ~ wo~ "()"~wo~":"~  w  ~ ruby_type~"?"?
+  attribute_type ~ w ~ method_name ~ ":" ~ w ~ ruby_type ~ "?"?
+    | attribute_type ~ w ~ method_name ~ wo ~ "(" ~ wo ~ ivar_name ~ wo ~ ")" ~ wo ~ ":" ~ w ~ ruby_type ~ "?"?
+    | attribute_type ~ w ~ method_name ~ wo ~ "()" ~ wo ~ ":" ~ w ~ ruby_type ~ "?"?
 }
 
 member = {
   comments* ~
-    wo  ~
+    wo ~
     (ivar_member
      | method_member
      | attribute_member
@@ -192,7 +192,7 @@ member = {
      | class_decl
      | module_decl
      | interface_decl
-     | type_alias_decl 
+     | type_alias_decl
      | "public"
      | "private"
     )
@@ -203,20 +203,20 @@ variance ={
 }
 
 module_type_parameter = {
-  variance?  ~ type_variable
+  variance? ~ type_variable
 }
 
 module_type_parameters ={
-  "[" ~ (module_type_parameter ~ "," ~ wo )* ~ module_type_parameter ~"]"
+  "[" ~ (module_type_parameter ~ "," ~ wo )* ~ module_type_parameter ~ "]"
 }
 
 const_name = {
   "::"? ~ (ASCII_ALPHA | "_" | "::")+
 }
 
-global_name = { "$" ~ASCII_ALPHA }
+global_name = { "$" ~ ASCII_ALPHA }
 
-global_decl = { global_name~ ":" ~w~ ruby_type }
+global_decl = { global_name ~ ":" ~ w ~ ruby_type }
 
 extension_decl = {
   "extension" ~ w ~ class_name ~ type_parameters ~ "(" ~ capital_case ~ ")" ~ member+ ~ "end"
@@ -243,16 +243,16 @@ decl = {
 }
 
 class_decl = {
-  "class" ~  w  ~ class_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~wo~ "end"
-    | "class"~  w   ~ class_name ~ module_type_parameters*~  w   ~ "<"~  w   ~ class_name ~ type_arguments? ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ wo~ "end"
+  "class" ~ w ~ class_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ wo ~ "end"
+    | "class" ~ w  ~ class_name ~ module_type_parameters* ~ w  ~ "<" ~ w  ~ class_name ~ type_arguments? ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ wo ~ "end"
 }
 module_name = {
   capital_case
 }
 
 module_decl ={
-  "module" ~ w ~ module_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE*)* ~ NEWLINE*~wo ~ "end"
-    | "module" ~ w ~ module_name ~ module_type_parameters* ~ wo ~":" ~ wo ~ module_self_types ~NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~wo~ "end"
+  "module" ~ w ~ module_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE*)* ~ NEWLINE* ~ wo ~ "end"
+    | "module" ~ w ~ module_name ~ module_type_parameters* ~ wo ~ ":" ~ wo ~ module_self_types ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ wo ~ "end"
 }
 
 module_self_types ={
@@ -262,13 +262,13 @@ module_self_types ={
 }
 
 interface_decl ={
-  "interface" ~ w ~ interface_name ~ module_type_parameters* ~ NEWLINE+  ~ (wo~interface_members ~ NEWLINE*)*~ NEWLINE* ~wo  ~ "end"
+  "interface" ~ w ~ interface_name ~ module_type_parameters* ~ NEWLINE+ ~ (wo ~ interface_members ~ NEWLINE*)* ~ NEWLINE* ~ wo ~ "end"
 }
 
 interface_members = {
 
   comments* ~
-    wo  ~(
+    wo ~ (
         method_member
         | include_member
         | alias_member
