@@ -1,14 +1,14 @@
-captial_case = _{ ASCII_ALPHA_UPPER ~ (ASCII_ALPHANUMERIC | "_")* }
-string_literal = _{ "\"" ~ ASCII_ALPHANUMERIC* ~ "\"" | "'" ~ ASCII_ALPHANUMERIC* ~ "'" }
-symbol_literal = _{ ":" ~ ASCII_ALPHANUMERIC+ }
+captial_case = { ASCII_ALPHA_UPPER ~ (ASCII_ALPHANUMERIC | "_")* }
+string_literal = { "\"" ~ ASCII_ALPHANUMERIC* ~ "\"" | "'" ~ ASCII_ALPHANUMERIC* ~ "'" }
+symbol_literal = { ":" ~ ASCII_ALPHANUMERIC+ }
 w = _{ WHITE_SPACE+ }
 wo = _{ WHITE_SPACE* }
-integer_literal= _{ ASCII_DIGIT+ }
+integer_literal= { ASCII_DIGIT+ }
 lower_case = _{ ASCII_ALPHA_LOWER{1} ~ (ASCII_ALPHANUMERIC | "_")* }
 namespace = { "::"? ~ captial_case ~ "::"*  | "::" }
 
 class_name = { namespace* ~ "_"? ~ captial_case? }
-interface_name = { "_"?~namespace? ~ "_" ~ captial_case }
+interface_name = { namespace? ~ "_"? ~ captial_case }
 alias_name = { namespace? ~ lower_case }
 
 type_variable = { "_"?~captial_case }
@@ -120,7 +120,7 @@ method_name = {
 }
 
 arrow_type = {
- w ~ "->" ~  w  ~ ( "("~wo~ruby_types~wo~")" | ruby_type)
+ wo ~ "->" ~  w  ~ ( "("~wo~ruby_types~wo~")" | ruby_type)
 }
 method_type = {
   "(" ~ wo ~ ")" ~ arrow_type
@@ -138,6 +138,7 @@ method_types =  {
   "super" 
     |  "(" ~ wo ~ method_types_prime ~ wo ~ ")" // this might be a lie..
     |  method_types_prime 
+    | arrow_type
 }
 
 
@@ -189,6 +190,8 @@ member = {
      | const_decl
      | class_decl
      | module_decl
+     | interface_decl
+     | type_alias_decl 
      | "public"
      | "private"
     )
@@ -207,7 +210,7 @@ module_type_parameters ={
 }
 
 const_name = {
-  namespace? ~(ASCII_ALPHA | "_")+
+ (ASCII_ALPHA | "_")+
 }
 
 global_name = { "$" ~ASCII_ALPHA }
@@ -215,11 +218,11 @@ global_name = { "$" ~ASCII_ALPHA }
 global_decl = { global_name~ ":" ~w~ ruby_type }
 
 extension_decl = {
-  "extension" ~ class_name ~ type_parameters ~ "(" ~ captial_case ~ ")" ~ member+ ~ "end"
+  "extension" ~ w ~ class_name ~ type_parameters ~ "(" ~ captial_case ~ ")" ~ member+ ~ "end"
 }
 
 type_alias_decl = {
-  "type" ~ alias_name ~ "=" ~ ruby_type
+  "type" ~ w ~ alias_name ~ wo ~ "=" ~ w ~ ruby_types
 }
 
 const_decl = {
@@ -248,7 +251,7 @@ module_name = {
 
 module_decl ={
   "module" ~ w ~ module_name ~ module_type_parameters* ~ NEWLINE+ ~ (member ~ NEWLINE*)* ~ NEWLINE*~wo ~ "end"
-    | "module" ~ w ~ module_name ~ module_type_parameters ~ wo ~":" ~ wo ~ module_self_types ~NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~wo~ "end"
+    | "module" ~ w ~ module_name ~ module_type_parameters* ~ wo ~":" ~ wo ~ module_self_types ~NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~wo~ "end"
 }
 
 module_self_types ={
@@ -257,13 +260,17 @@ module_self_types ={
 }
 
 interface_decl ={
-  "interface" ~ interface_name ~ module_type_parameters ~ interface_members ~ "end"
+  "interface" ~ w ~ interface_name ~ module_type_parameters* ~ NEWLINE+  ~ (wo~interface_members ~ NEWLINE*)*~ NEWLINE* ~wo  ~ "end"
 }
 
 interface_members = {
+
+  comments* ~
+    wo  ~(
   method_member
     | include_member
     | alias_member
+    )
 }
 
 no_newline = _{ SPACE_SEPARATOR  | MARK | SYMBOL | PUNCTUATION | NUMBER | LETTER }
