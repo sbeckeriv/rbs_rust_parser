@@ -30,11 +30,11 @@ ruby_type = {
     | class_name ~ type_arguments
     | interface_name ~ type_arguments
     | "singleton(" ~ class_name ~ ")"
-    //    | alias_name // why is this hear?
     | literal
     | "{"~wo ~ (record_name ~ ":"~wo ~ ruby_type ~ wo ~","?~wo)+ ~ wo~"}"
     | "["~wo~"]" | "[" ~ wo ~ ( ruby_type ~ ","? ~  wo  )+ ~ wo~"]"
     | type_variable
+    //| alias_name~"?"?~w // why is this hear?
 }
 ruby_types = {
   (ruby_type ~ wo ~ "|" ~ wo)+ ~ wo ~ ruby_type
@@ -44,7 +44,7 @@ ruby_types = {
 }
 
 //method types
-var_name = { lower_case }
+var_name = { "_"? ~ lower_case }
 parameter_prime = { "?"?~ "*"? ~(ruby_types ~ w ~ var_name | ruby_types) }
 parameter = {
   "?"?~
