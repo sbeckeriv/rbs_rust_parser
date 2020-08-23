@@ -81,7 +81,20 @@ parameters = {
 ivar_member = { ivar_name ~ ":" ~ ruby_type }
 ivar_name =  { "@" ~ lower_case }
 method_name = {
-  "[]"
+   // ordered by count
+    "<=>"
+    | "==="
+    | "[]=" 
+    | "!~"
+    | "+@"
+    | "-@"
+    | "<<"
+    | ">="
+    | "<="
+    | "[]" 
+    | "=~"
+    | "=="
+    | "**"
     | "*"
     | "!"
     | "%"
@@ -89,17 +102,16 @@ method_name = {
     | "-"
     | "/"
     | "&"
+    | "^"
     | "|"
-    | "<<"
     | "<"
     | ">"
-    | ">="
-    | "^"
-    | "<=>"
-    | "=="
-    | "==="
-    | "**"
-    | "`self`"
+    |
+    ( "`" ~
+     (ASCII_ALPHA | "_" ) ~
+     (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?" | "=")? 
+     ~ "`"
+    )
     |
     (
      (ASCII_ALPHA | "_" ) ~
@@ -130,7 +142,7 @@ method_types =  {
 
 
 method_member = {
-  "def"~  w   ~ method_name ~ ":"~ w   ~ method_types
+  "def"~  w ~ method_name ~ ":"~ w   ~ method_types
     | "def" ~  w  ~ "self." ~ method_name ~ ":"~  w   ~ method_types
     | "def" ~  w  ~ "self?." ~ method_name ~ ":"~  w   ~ method_types
 }
