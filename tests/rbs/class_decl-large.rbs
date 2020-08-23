@@ -1,5 +1,3 @@
-# Now with
-# even more comments
 class Ref[A] < Object
   # you get a comment
   attr_reader value: A
