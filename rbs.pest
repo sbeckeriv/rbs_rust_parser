@@ -126,7 +126,7 @@ arrow_type = {
   wo ~ "->" ~ w ~ ( "(" ~ wo ~ params* ~ wo ~ ")" | ruby_type)
 }
 
-params = { (SPACE_SEPARATOR | MARK | SYMBOL | NUMBER | LETTER | ":" | "_" | ":" | "?" | "|" | "," | "*" | "[" | "]")+ }
+params = { ((SPACE_SEPARATOR |SEPARATOR | MARK | SYMBOL | NUMBER | LETTER | ":" | "_" | ":" | "?" | "|" | "," | "*" | "[" | "]" |"#" )~ NEWLINE* ~ wo)+ }
 method_type = {
   "(" ~ wo ~ ")" ~ arrow_type
     | "(" ~ params? ~ ")" ~ wo ~ "?"? ~ "{" ~ wo ~ "(" ~ params? ~ ")" ~ w ~ "->" ~ w ~ "(" ~ wo ~ ruby_types ~ wo ~ ")" ~ wo ~ "}" ~ arrow_type
