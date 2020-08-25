@@ -34,7 +34,7 @@ ruby_type = {
     | "singleton(" ~ class_name ~ ")"
     | literal
     | "{" ~ wo ~ (record_name ~ ":" ~ wo ~ ruby_type ~ wo ~ ","? ~ wo)+ ~ wo ~ "}"
-    | "[" ~ wo ~ "]" | "[" ~ wo ~ ( ruby_type ~ ","? ~ wo  )+ ~ wo ~ "]"
+    | "[" ~ wo ~ "]" | "[" ~ wo ~ ( ruby_types~ ","? ~ wo  )+ ~ wo ~ "]"
     | type_variable
     //| alias_name ~ "?"? ~ w // why is this hear?
 }
