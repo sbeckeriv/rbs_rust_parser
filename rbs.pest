@@ -145,8 +145,7 @@ method_types_prime =  {
 
 method_types =  {
   "super"
-    |  "(" ~ wo ~ method_types_prime ~ wo ~ ")" // this might be a lie..
-    |  method_types_prime
+    | method_types_prime
     | arrow_type
 }
 
