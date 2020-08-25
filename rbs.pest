@@ -207,7 +207,7 @@ member = {
 }
 
 variance ={
-  ("out" | "in") ~ w
+  ("unchecked" ~ w)? ~ ("out" | "in") ~ w
 }
 
 module_type_parameter = {
@@ -264,9 +264,9 @@ module_decl ={
 }
 
 module_self_types ={
-  class_name ~ type_arguments? ~ "," ~ module_self_types
+  (class_with_type | class_name) ~ "," ~ module_self_types
     | interface_name ~ type_arguments? ~ "," ~ module_self_types
-    | class_name
+    | (class_with_type | class_name)
 }
 
 interface_decl ={
