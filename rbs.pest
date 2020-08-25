@@ -36,7 +36,7 @@ ruby_type = {
     | "{" ~ wo ~ (record_name ~ ":" ~ wo ~ ruby_type ~ wo ~ ","? ~ wo)+ ~ wo ~ "}"
     | "[" ~ wo ~ "]" | "[" ~ wo ~ ( ruby_types~ ","? ~ wo  )+ ~ wo ~ "]"
     | type_variable
-    //| alias_name ~ "?"? ~ w // why is this hear?
+    | alias_name ~ "?"? ~ w // why is this hear?
 }
 ruby_types = {
   (ruby_type ~ wo ~ NEWLINE* ~ "|" ~ NEWLINE* ~ wo)+ ~ wo ~ ruby_type
