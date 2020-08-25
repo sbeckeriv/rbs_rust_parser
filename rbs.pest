@@ -7,8 +7,9 @@ integer_literal= { ASCII_DIGIT+ }
 lower_case = _{ ASCII_ALPHA_LOWER{1} ~ (ASCII_ALPHANUMERIC | "_")* }
 namespace = { "::"? ~ capital_case ~ "::"*  | "::" }
 
-class_name = { namespace* ~ "_"? ~ capital_case? }
-interface_name = { namespace? ~ "_"? ~ capital_case }
+class_name = { "::"? ~ "_"? ~ (capital_case ~ "::")* ~ capital_case  | "::" }
+class_with_type = { "::"? ~ "_"? ~ (capital_case ~ "::")* ~ capital_case ~ "[" ~ wo ~ (ruby_types ~ ","? ~ wo )+ ~ wo ~ "]" }
+interface_name = { "::"? ~ "_"? ~ capital_case ~ "::"*  | "::" }
 alias_name = { namespace? ~ lower_case }
 
 type_variable = { "_"? ~ capital_case }
@@ -27,7 +28,8 @@ ruby_type = {
     | "top"
     | "bot"
     | "void"
-    | class_name ~ type_arguments
+    | class_with_type
+    | class_name
     | interface_name ~ type_arguments
     | "singleton(" ~ class_name ~ ")"
     | literal
@@ -37,7 +39,7 @@ ruby_type = {
     //| alias_name ~ "?"? ~ w // why is this hear?
 }
 ruby_types = {
-  (ruby_type ~ wo ~ "|" ~ wo)+ ~ wo ~ ruby_type
+  (ruby_type ~ wo ~ NEWLINE* ~ "|" ~ NEWLINE* ~ wo)+ ~ wo ~ ruby_type
     | (ruby_type ~ wo ~ "&" ~ wo)+ ~ ruby_type
     | ruby_type ~ "?"
     | ruby_type
@@ -82,7 +84,9 @@ ivar_member = { ivar_name ~ ":" ~ ruby_type }
 ivar_name =  { "@" ~ lower_case }
 method_name = {
   // ordered by count
-  "<=>"
+  "`"? ~
+    ( 
+    "<=>"
     | "==="
     | "[]="
     | "!~"
@@ -109,6 +113,8 @@ method_name = {
     | "|"
     | "<"
     | ">"
+    )
+    ~ "`"?
     |
     ( "`" ~
       (ASCII_ALPHA | "_" ) ~
@@ -123,7 +129,7 @@ method_name = {
 }
 
 arrow_type = {
-  wo ~ "->" ~ w ~ ( "(" ~ wo ~ params* ~ wo ~ ")" | ruby_type)
+  wo ~ "->" ~ w ~ ( "(" ~ wo ~ params* ~ wo ~ ")" | ruby_types )
 }
 
 params = { ((SPACE_SEPARATOR |SEPARATOR | MARK | SYMBOL | NUMBER | LETTER | ":" | "_" | ":" | "?" | "|" | "," | "*" | "[" | "]" |"#" )~ NEWLINE* ~ wo)+ }
@@ -249,7 +255,7 @@ class_decl = {
     | "class" ~ w  ~ class_name ~ module_type_parameters* ~ w  ~ "<" ~ w  ~ class_name ~ type_arguments? ~ NEWLINE+ ~ (member ~ NEWLINE* )* ~ NEWLINE* ~ wo ~ "end"
 }
 module_name = {
-  capital_case
+  "::"? ~ "_"? ~ (capital_case ~ "::")* ~ capital_case  | "::"
 }
 
 module_decl ={
