@@ -151,9 +151,12 @@ method_types =  {
 
 
 method_member = {
+  ("incompatible" ~ w)? ~
+  (
   "def" ~ w ~ method_name ~ ":" ~ w  ~ method_types
     | "def" ~ w ~ "self." ~ method_name ~ ":" ~ w  ~ method_types
     | "def" ~ w ~ "self?." ~ method_name ~ ":" ~ w  ~ method_types
+  )
 }
 
 alias_member = {
