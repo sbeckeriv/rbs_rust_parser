@@ -126,6 +126,7 @@ method_name = {
      (ASCII_ALPHA | "_" ) ~
      (ASCII_ALPHANUMERIC | "_" )* ~ ("!" | "?" | "=")?
     )
+    | "`" //last if it is a standalone def `:
 }
 
 arrow_type = {
@@ -138,6 +139,7 @@ method_type = {
     | "(" ~ params? ~ ")" ~ wo ~ "?"? ~ "{" ~ wo ~ "(" ~ params? ~ ")" ~ w ~ "->" ~ w ~ "(" ~ wo ~ ruby_types ~ wo ~ ")" ~ wo ~ "}" ~ arrow_type
     | "(" ~ params? ~ ")" ~ wo ~ "?"? ~ "{" ~ wo ~ "(" ~ params? ~ ")" ~ w ~ "->" ~ w ~ ruby_type ~ wo ~ "}" ~ arrow_type
     | "(" ~ params ~ ")" ~ arrow_type
+    | arrow_type
 }
 method_types_prime =  {
   (type_parameters* ~ wo ~ method_type ~ wo ~ "|" ~ wo)* ~ type_parameters* ~ method_type ~ "?"?
