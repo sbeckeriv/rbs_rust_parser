@@ -136,7 +136,7 @@ arrow_type = {
 p = { ((SPACE_SEPARATOR |SEPARATOR | MARK | SYMBOL | NUMBER | LETTER | ":" | "_" | ":" | "?" | "|" | "," | "*" | "[" | "]" |"#" )~ NEWLINE* ~ wo)+ }
 // https://github.com/pest-parser/pest/issues/463#issuecomment-677508586 adapted from here.
 value = _{ p }
-call = {value ~ (arguments)*}
+call = { (value | arguments) ~ (arguments)*}
 arguments = { "(" ~ (params ~ ("," ~ params )* ~ ","?)? ~ ")" }
 params = {call ~ (call)*}
 
