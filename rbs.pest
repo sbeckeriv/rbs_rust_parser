@@ -133,7 +133,13 @@ arrow_type = {
   wo ~ "->" ~ w ~ ( "(" ~ wo ~ params* ~ wo ~ ")" | ruby_type ~ "?"? )
 }
 
-params = { ((SPACE_SEPARATOR |SEPARATOR | MARK | SYMBOL | NUMBER | LETTER | ":" | "_" | ":" | "?" | "|" | "," | "*" | "[" | "]" |"#" )~ NEWLINE* ~ wo)+ }
+p = { ((SPACE_SEPARATOR |SEPARATOR | MARK | SYMBOL | NUMBER | LETTER | ":" | "_" | ":" | "?" | "|" | "," | "*" | "[" | "]" |"#" )~ NEWLINE* ~ wo)+ }
+// https://github.com/pest-parser/pest/issues/463#issuecomment-677508586 adapted from here.
+value = _{ p }
+call = {value ~ (arguments)*}
+arguments = { "(" ~ (params ~ ("," ~ params )* ~ ","?)? ~ ")" }
+params = {call ~ (call)*}
+
 method_type = {
   "(" ~ wo ~ ")" ~ arrow_type
     | "(" ~ params? ~ ")" ~ wo ~ "?"? ~ "{" ~ wo ~ "(" ~ params? ~ ")" ~ w ~ "->" ~ w ~ "(" ~ wo ~ ruby_types ~"?"? ~ wo ~ ")" ~ wo ~ "}" ~ arrow_type
@@ -141,6 +147,7 @@ method_type = {
     | "(" ~ params ~ ")" ~ arrow_type
     | arrow_type
 }
+
 method_types_prime =  {
   (type_parameters* ~ wo ~ method_type ~ wo ~ "|" ~ wo)* ~ type_parameters* ~ method_type ~ "?"?
 }
@@ -150,7 +157,6 @@ method_types =  {
     | method_types_prime
     | arrow_type
 }
-
 
 method_member = {
   ("incompatible" ~ w)? ~
