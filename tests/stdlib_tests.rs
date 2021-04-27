@@ -4,402 +4,342 @@ use rbs_parser::{RBSParser, Rule};
 use std::fs;
 use pest::Parser;
 #[test]
-fn test_abbrev_abbrev() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//abbrev/abbrev.rbs").expect("didnt work");
+fn test_abbrev_0_abbrev() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//abbrev/0/abbrev.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_base64_base64() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//base64/base64.rbs").expect("didnt work");
+fn test_base64_0_base64() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//base64/0/base64.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_benchmark_benchmark() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//benchmark/benchmark.rbs").expect("didnt work");
+fn test_benchmark_0_benchmark() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//benchmark/0/benchmark.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_array() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/array.rbs").expect("didnt work");
+fn test_bigdecimal_0_big_decimal() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//bigdecimal/0/big_decimal.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_basic_object() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/basic_object.rbs").expect("didnt work");
+fn test_bigdecimal_math_0_big_math() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//bigdecimal-math/0/big_math.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_binding() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/binding.rbs").expect("didnt work");
+fn test_cgi_0_core() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//cgi/0/core.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_builtin() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/builtin.rbs").expect("didnt work");
+fn test_coverage_0_coverage() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//coverage/0/coverage.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_class() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/class.rbs").expect("didnt work");
+fn test_csv_0_csv() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//csv/0/csv.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_comparable() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/comparable.rbs").expect("didnt work");
+fn test_date_0_date() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//date/0/date.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_complex() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/complex.rbs").expect("didnt work");
+fn test_date_0_date_time() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//date/0/date_time.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_constants() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/constants.rbs").expect("didnt work");
+fn test_dbm_0_dbm() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//dbm/0/dbm.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_data() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/data.rbs").expect("didnt work");
+fn test_erb_0_erb() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//erb/0/erb.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_deprecated() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/deprecated.rbs").expect("didnt work");
+fn test_fiber_0_fiber() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//fiber/0/fiber.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_dir() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/dir.rbs").expect("didnt work");
+fn test_fileutils_0_fileutils() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//fileutils/0/fileutils.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_encoding() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/encoding.rbs").expect("didnt work");
+fn test_find_0_find() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//find/0/find.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_enumerable() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/enumerable.rbs").expect("didnt work");
+fn test_forwardable_0_forwardable() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//forwardable/0/forwardable.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_enumerator() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/enumerator.rbs").expect("didnt work");
+fn test_ipaddr_0_ipaddr() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//ipaddr/0/ipaddr.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_errno() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/errno.rbs").expect("didnt work");
+fn test_json_0_json() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//json/0/json.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_errors() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/errors.rbs").expect("didnt work");
+fn test_logger_0_formatter() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/0/formatter.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_exception() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/exception.rbs").expect("didnt work");
+fn test_logger_0_log_device() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/0/log_device.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_false_class() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/false_class.rbs").expect("didnt work");
+fn test_logger_0_logger() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/0/logger.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_fiber() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/fiber.rbs").expect("didnt work");
+fn test_logger_0_period() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/0/period.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_fiber_error() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/fiber_error.rbs").expect("didnt work");
+fn test_logger_0_severity() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/0/severity.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_file() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/file.rbs").expect("didnt work");
+fn test_monitor_0_monitor() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//monitor/0/monitor.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_file_test() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/file_test.rbs").expect("didnt work");
+fn test_mutex_m_0_mutex_m() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//mutex_m/0/mutex_m.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_float() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/float.rbs").expect("didnt work");
+fn test_pathname_0_pathname() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//pathname/0/pathname.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_gc() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/gc.rbs").expect("didnt work");
+fn test_prettyprint_0_prettyprint() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//prettyprint/0/prettyprint.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_hash() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/hash.rbs").expect("didnt work");
+fn test_prime_0_integer_extension() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//prime/0/integer-extension.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_integer() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/integer.rbs").expect("didnt work");
+fn test_prime_0_prime() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//prime/0/prime.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_io() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/io.rbs").expect("didnt work");
+fn test_pstore_0_pstore() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//pstore/0/pstore.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_kernel() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/kernel.rbs").expect("didnt work");
+fn test_pty_0_pty() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//pty/0/pty.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_marshal() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/marshal.rbs").expect("didnt work");
+fn test_rubygems_0_basic_specification() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/basic_specification.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_match_data() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/match_data.rbs").expect("didnt work");
+fn test_rubygems_0_config_file() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/config_file.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_math() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/math.rbs").expect("didnt work");
+fn test_rubygems_0_dependency_installer() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/dependency_installer.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_method() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/method.rbs").expect("didnt work");
+fn test_rubygems_0_installer() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/installer.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_module() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/module.rbs").expect("didnt work");
+fn test_rubygems_0_path_support() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/path_support.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_nil_class() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/nil_class.rbs").expect("didnt work");
+fn test_rubygems_0_platform() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/platform.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_numeric() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/numeric.rbs").expect("didnt work");
+fn test_rubygems_0_request_set() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/request_set.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_object() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/object.rbs").expect("didnt work");
+fn test_rubygems_0_requirement() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/requirement.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_proc() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/proc.rbs").expect("didnt work");
+fn test_rubygems_0_rubygems() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/rubygems.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_process() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/process.rbs").expect("didnt work");
+fn test_rubygems_0_source_list() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/source_list.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_random() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/random.rbs").expect("didnt work");
+fn test_rubygems_0_specification() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/specification.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_range() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/range.rbs").expect("didnt work");
+fn test_rubygems_0_stream_ui() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/stream_ui.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_rational() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/rational.rbs").expect("didnt work");
+fn test_rubygems_0_uninstaller() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/uninstaller.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_rb_config() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/rb_config.rbs").expect("didnt work");
+fn test_rubygems_0_version() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//rubygems/0/version.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_regexp() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/regexp.rbs").expect("didnt work");
+fn test_securerandom_0_securerandom() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//securerandom/0/securerandom.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_ruby_vm() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/ruby_vm.rbs").expect("didnt work");
+fn test_set_0_set() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//set/0/set.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_signal() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/signal.rbs").expect("didnt work");
+fn test_shellwords_0_shellwords() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//shellwords/0/shellwords.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_string() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/string.rbs").expect("didnt work");
+fn test_singleton_0_singleton() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//singleton/0/singleton.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_string_io() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/string_io.rbs").expect("didnt work");
+fn test_strscan_0_string_scanner() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//strscan/0/string_scanner.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_struct() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/struct.rbs").expect("didnt work");
+fn test_time_0_time() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//time/0/time.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_symbol() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/symbol.rbs").expect("didnt work");
+fn test_timeout_0_timeout() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//timeout/0/timeout.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_thread() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/thread.rbs").expect("didnt work");
+fn test_tmpdir_0_tmpdir() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//tmpdir/0/tmpdir.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_thread_group() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/thread_group.rbs").expect("didnt work");
+fn test_tsort_0_cyclic() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//tsort/0/cyclic.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_time() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/time.rbs").expect("didnt work");
+fn test_tsort_0_interfaces() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//tsort/0/interfaces.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_trace_point() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/trace_point.rbs").expect("didnt work");
+fn test_tsort_0_tsort() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//tsort/0/tsort.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_true_class() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/true_class.rbs").expect("didnt work");
+fn test_uri_0_common() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/common.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_unbound_method() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/unbound_method.rbs").expect("didnt work");
+fn test_uri_0_file() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/file.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_builtin_warning() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//builtin/warning.rbs").expect("didnt work");
+fn test_uri_0_generic() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/generic.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_coverage_coverage() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//coverage/coverage.rbs").expect("didnt work");
+fn test_uri_0_http() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/http.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_csv_csv() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//csv/csv.rbs").expect("didnt work");
+fn test_uri_0_https() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/https.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_erb_erb() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//erb/erb.rbs").expect("didnt work");
+fn test_uri_0_ldap() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/ldap.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_fiber_fiber() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//fiber/fiber.rbs").expect("didnt work");
+fn test_uri_0_ldaps() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/ldaps.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_find_find() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//find/find.rbs").expect("didnt work");
+fn test_uri_0_rfc2396_parser() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/rfc2396_parser.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_ipaddr_ipaddr() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//ipaddr/ipaddr.rbs").expect("didnt work");
+fn test_uri_0_rfc3986_parser() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//uri/0/rfc3986_parser.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_json_json() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//json/json.rbs").expect("didnt work");
+fn test_yaml_0_dbm() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//yaml/0/dbm.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_logger_formatter() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/formatter.rbs").expect("didnt work");
+fn test_yaml_0_store() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//yaml/0/store.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
 #[test]
-fn test_logger_log_device() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/log_device.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_logger_logger() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/logger.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_logger_period() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/period.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_logger_severity() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//logger/severity.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_mutex_m_mutex_m() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//mutex_m/mutex_m.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_pathname_pathname() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//pathname/pathname.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_prime_integer_extension() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//prime/integer-extension.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_prime_prime() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//prime/prime.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_pty_pty() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//pty/pty.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_securerandom_securerandom() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//securerandom/securerandom.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_set_set() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//set/set.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_tmpdir_tmpdir() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//tmpdir/tmpdir.rbs").expect("didnt work");
-    let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
-}
-#[test]
-fn test_zlib_zlib() {
-    let string =  fs::read_to_string("./tests/stdlib/stdlib//zlib/zlib.rbs").expect("didnt work");
+fn test_zlib_0_zlib() {
+    let string =  fs::read_to_string("./tests/stdlib/stdlib//zlib/0/zlib.rbs").expect("didnt work");
     let _pairs = RBSParser::parse(Rule::decl, &string).unwrap_or_else(|e| panic!("error{}", e));
 }
